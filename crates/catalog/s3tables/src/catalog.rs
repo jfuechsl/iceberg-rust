@@ -53,6 +53,26 @@ pub struct S3TablesCatalogConfig {
     endpoint_url: Option<String>,
 }
 
+impl S3TablesCatalogConfig {
+    /// Creates a new S3TablesCatalogConfig from a table bucket ARN.
+    ///
+    /// # Arguments
+    ///
+    /// * `table_bucket_arn` - The ARN of the S3Tables bucket in the format:
+    ///                        arn:aws:s3:<region>:<account>:bucket/<bucket_name>
+    ///
+    /// # Returns
+    ///
+    /// Returns a new S3TablesCatalogConfig instance with the specified bucket ARN and default empty properties.
+    pub fn from_table_bucket_arn(table_bucket_arn: impl Into<String>) -> Self {
+        Self {
+            table_bucket_arn: table_bucket_arn.into(),
+            properties: HashMap::new(),
+            endpoint_url: None,
+        }
+    }
+}
+
 /// S3Tables catalog implementation.
 #[derive(Debug)]
 pub struct S3TablesCatalog {
